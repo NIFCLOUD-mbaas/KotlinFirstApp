@@ -11,6 +11,7 @@ import android.widget.EditText
 import android.widget.ImageView
 import android.widget.TextView
 import com.nifcloud.mbaas.core.NCMB
+import com.nifcloud.mbaas.core.NCMBCallback
 import com.nifcloud.mbaas.core.NCMBObject
 import java.util.*
 
@@ -95,7 +96,7 @@ class MainActivity : AppCompatActivity() {
         obj.put("score", score)
 
         //保存を実施
-        obj.saveInBackground { e ->
+        obj.saveInBackground(NCMBCallback { e, ncmbObj ->
             if (e != null) {
                 //保存が失敗した場合の処理
                 Log.e("NCMB", "保存に失敗しました。エラー:" + e.message)
@@ -103,7 +104,7 @@ class MainActivity : AppCompatActivity() {
                 //保存が成功した場合の処理
                 Log.i("NCMB", "保存に成功しました。")
             }
-        }
+        })
         // **************************************************
 
     }
