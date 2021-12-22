@@ -170,19 +170,17 @@ val lv = findViewById<View>(R.id.lstRanking) as ListView
 // ループカウンタ
 val adapter = ArrayAdapter<String>(this@RankingActivity, android.R.layout.simple_list_item_1)
 
-var i = 0
-val n = objects.size
-while (i < n) {
-    val o = objects[i]
-    Log.i("NCMB", o.getString("name"))
-    // 処理
-    val name = o.getString("name")
-    val score = o.getInt("score")
-    adapter.add(name + " さん : " + score.toString() + " (point)")
-    i++
+if(objects is List<*>) {
+    for (obj:Any? in objects) {
+        if (obj is NCMBObject) {
+            val name = obj.getString("name")
+            val score = obj.mFields.get("score")
+            adapter.add(name + " さん : " + score.toString() + " (point)")
+        }
+    }
+    lv.adapter = adapter
 }
 
-lv.setAdapter(adapter)
 ```
 
 #### 【作業2-4】
